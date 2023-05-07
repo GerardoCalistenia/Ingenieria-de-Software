@@ -9,13 +9,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "Administrador")
-public class Administrator {
+@Table(name = "Cliente")
+public class Client {
 
     @Id
-    @Column(name = "administrador_id")
+    @Column(name = "cliente_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer administrator_id;
+    private Integer client_id;
 
     @NotNull
     @Column(name = "nombre")
@@ -29,12 +29,17 @@ public class Administrator {
     @Column(name = "contraseña")
     private String password;
 
-    public void setAdministratorId(Integer administrator_id) {
-        this.administrator_id = administrator_id;
+    @NotNull
+    @Column(name = "fecha_nacimiento")
+    private String date_of_birth;
+
+
+    public void setAdministratorId(Integer client_id) {
+        this.client_id = client_id;
     }
 
     public Integer getAdministratorId() {
-        return administrator_id;
+        return client_id;
     }
     
     public void setName(String name) {
@@ -59,5 +64,13 @@ public class Administrator {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setDateOfBirth(String date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
+
+    public String getDateOfBirth() {
+        return date_of_birth;
     }
 }
