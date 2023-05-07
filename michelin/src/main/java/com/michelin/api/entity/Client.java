@@ -9,28 +9,28 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "Cliente")
+@Table(name = "client")
 public class Client {
 
     @Id
-    @Column(name = "cliente_id")
+    @Column(name = "client_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer client_id;
 
     @NotNull
-    @Column(name = "nombre")
+    @Column(name = "name")
     private String name;
 
     @NotNull
-    @Column(name = "correo")
+    @Column(name = "email")
     private String email;
 
     @NotNull
-    @Column(name = "contraseña")
+    @Column(name = "password")
     private String password;
 
     @NotNull
-    @Column(name = "fecha_nacimiento")
+    @Column(name = "date_of_birth")
     private String date_of_birth;
 
 

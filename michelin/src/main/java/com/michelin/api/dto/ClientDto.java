@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "product")
+@Table(name = "Cliente")
 public class ClientDto {
 
     @Column(name = "correo")

@@ -9,24 +9,24 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "Administrador")
+@Table(name = "administrator")
 public class Administrator {
 
     @Id
-    @Column(name = "administrador_id")
+    @Column(name = "administrator_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer administrator_id;
 
     @NotNull
-    @Column(name = "nombre")
+    @Column(name = "name")
     private String name;
 
     @NotNull
-    @Column(name = "correo")
+    @Column(name = "email")
     private String email;
 
     @NotNull
-    @Column(name = "contraseña")
+    @Column(name = "password")
     private String password;
 
     public void setAdministratorId(Integer administrator_id) {
