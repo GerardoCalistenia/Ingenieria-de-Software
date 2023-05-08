@@ -2,6 +2,7 @@ package com.michelin.api.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "Cliente")
 public class ClientDto {
 
+    @Id
     @Column(name = "correo")
     @NotNull(message = "email is required")
     private String email;
