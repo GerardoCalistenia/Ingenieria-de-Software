@@ -1,5 +1,7 @@
 package com.michelin.api.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +33,7 @@ public class Client {
 
     @NotNull
     @Column(name = "date_of_birth")
-    private String date_of_birth;
+    private Date date_of_birth;
 
 
     public void setAdministratorId(Integer client_id) {
@@ -66,11 +68,11 @@ public class Client {
         return password;
     }
 
-    public void setDateOfBirth(String date_of_birth) {
+    public void setDateOfBirth(Date date_of_birth) {
         this.date_of_birth = date_of_birth;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return date_of_birth;
     }
 }
