@@ -2,15 +2,13 @@ package com.michelin.api.dto;
 
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-@Table(name = "Cliente")
+@Table(name = "client")
 public class ClientDto {
 
     @Id

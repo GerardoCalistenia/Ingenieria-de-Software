@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
 @Table(name = "salesman")
 public class SalesmanDto {
 
