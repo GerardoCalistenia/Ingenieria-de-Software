@@ -28,4 +28,12 @@ public interface RepoSalesman extends JpaRepository<Salesman, Integer> {
     @Query(value = "SELECT * FROM salesman WHERE email = :email", nativeQuery = true)
     Salesman findByEmail(@Param("email") String email);
 
+    @Transactional
+    @Query(value = "SELECT * FROM salesman WHERE salesman_id = :salesman_id", nativeQuery = true)
+    Salesman findBySalesmanId(@Param("salesman_id") Integer salesman_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE salesman SET password = :password WHERE salesman_id = :salesman_id", nativeQuery = true)
+    void updatePassword(@Param("password") String password, @Param("salesman_id") Integer salesman_id);
 }
