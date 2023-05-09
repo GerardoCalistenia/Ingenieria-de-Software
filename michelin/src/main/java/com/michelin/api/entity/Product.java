@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "product")
 public class Product {
-    
+
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +47,7 @@ public class Product {
         return name;
     }
     
-    public void setProductId(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -60,7 +60,7 @@ public class Product {
     }
 
     public Integer getPrice() {
-        return product_id;
+        return price;
     }
     
     public void setPrice(Integer price) {
