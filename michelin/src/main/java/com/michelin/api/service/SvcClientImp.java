@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
+import com.michelin.api.dto.PasswordDto;
 import com.michelin.api.entity.Client;
 import com.michelin.api.repository.RepoClient;
 import com.michelin.exception.ApiException;
@@ -49,5 +50,10 @@ public class SvcClientImp implements SvcClient {
             sb.append(AB.charAt(rnd.nextInt(AB.length())));
         }
         return sb.toString();
+    }
+
+    @Override
+    public ApiResponse updatePassword(PasswordDto in, Integer client_id) {
+        return null;
     }
 }
