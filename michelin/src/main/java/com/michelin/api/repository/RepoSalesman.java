@@ -23,4 +23,9 @@ public interface RepoSalesman extends JpaRepository<Salesman, Integer> {
     @Param("email") String email,
     @Param("password") String password,
     @Param("date_of_birth") Date date_of_birth);
+
+    @Transactional
+    @Query(value = "SELECT * FROM salesman WHERE email = :email", nativeQuery = true)
+    Salesman findByEmail(@Param("email") String email);
+
 }
