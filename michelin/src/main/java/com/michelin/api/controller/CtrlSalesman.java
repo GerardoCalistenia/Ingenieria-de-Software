@@ -10,14 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.michelin.api.dto.ApiResponse;
-import com.michelin.api.dto.ClientDto;
 import com.michelin.api.dto.PasswordDto;
-import com.michelin.api.service.SvcClient;
 import com.michelin.api.service.SvcSalesman;
 import com.michelin.exception.ApiException;
 
