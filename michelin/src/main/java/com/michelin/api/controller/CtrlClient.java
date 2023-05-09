@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,12 +35,12 @@ public class CtrlClient {
         return new ResponseEntity<>(svc.registerClient(client), HttpStatus.OK);
     }
 
-    @PutMapping("/update/password")
-    public ResponseEntity<ApiResponse> updatePassword(@Valid @RequestBody PasswordDto in, BindingResult bindingResult) {
+    @PutMapping("/update/password/{client_id}")
+    public ResponseEntity<ApiResponse> updatePassword(@PathVariable Integer client_id, @Valid @RequestBody PasswordDto in, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
 
-        return new ResponseEntity<>(svc.updatePassword(in), HttpStatus.OK);
+        return new ResponseEntity<>(svc.updatePassword(in, client_id), HttpStatus.OK);
     }
 }
