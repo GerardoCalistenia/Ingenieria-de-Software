@@ -30,7 +30,6 @@ public class CtrlSalesman {
         if (bindingResult.hasErrors()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
-
         return new ResponseEntity<>(svc.updatePassword(in, salesman_id), HttpStatus.OK);
     }
 }
