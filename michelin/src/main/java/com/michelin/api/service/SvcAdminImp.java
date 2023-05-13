@@ -3,6 +3,7 @@ package com.michelin.api.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.michelin.api.dto.ApiResponse;
+import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
+import com.michelin.api.entity.Product;
 import com.michelin.api.entity.Salesman;
 import com.michelin.api.repository.RepoSalesman;
 import com.michelin.exception.ApiException;
@@ -49,4 +52,30 @@ public class SvcAdminImp implements SvcAdmin {
         }
         return sb.toString();
     }
+
+
+    /*
+     * Product Section
+     */
+
+     @Override
+     public List<Product> getProducts() {
+        return null;
+     }
+
+     @Override
+     public ApiResponse addProduct(ProductDto product, Integer administrator_id) {
+        return null;
+     }
+ 
+     @Override
+     public ApiResponse updateProduct(Integer product_id, ProductDto product) {
+        return null;
+     }
+ 
+     @Override
+     public ApiResponse deleteProduct(Integer product_id) {
+        return null;
+     }
+ 
 }   
