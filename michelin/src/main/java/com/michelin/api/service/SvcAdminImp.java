@@ -15,6 +15,7 @@ import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
 import com.michelin.api.entity.Product;
 import com.michelin.api.entity.Salesman;
+import com.michelin.api.repository.RepoProduct;
 import com.michelin.api.repository.RepoSalesman;
 import com.michelin.exception.ApiException;
 
@@ -23,6 +24,9 @@ public class SvcAdminImp implements SvcAdmin {
 
     @Autowired
     RepoSalesman repo;
+
+    @Autowired
+    RepoProduct repoProduct;
 
     @Override
     public ApiResponse registerSalesman(SalesmanDto in) {
