@@ -13,4 +13,6 @@ public interface SvcClient {
     public ApiResponse updatePassword(PasswordDto password, Integer client_id);
 
     public List<Product> getAllProducts();
+
+    public ApiResponse createOrder(Integer product_id, Integer client_id, Integer salesman_id);
 }

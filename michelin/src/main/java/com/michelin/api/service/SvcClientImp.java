@@ -71,4 +71,8 @@ public class SvcClientImp implements SvcClient {
     public List<Product> getAllProducts() {
         return repoProduct.getAllProducts();
     }
+
+    public ApiResponse createOrder(Integer product_id, Integer client_id) {
+        return null;
+    }
 }
