@@ -3,6 +3,7 @@ package com.michelin.api.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
 import com.michelin.api.dto.PasswordDto;
 import com.michelin.api.entity.Client;
+import com.michelin.api.entity.Product;
 import com.michelin.api.repository.RepoClient;
+import com.michelin.api.repository.RepoProduct;
 import com.michelin.exception.ApiException;
 
 @Service
@@ -21,6 +24,9 @@ public class SvcClientImp implements SvcClient {
     
     @Autowired
     RepoClient repo;
+    
+    @Autowired
+    RepoProduct repoProduct;
 
     @Override
     public ApiResponse registerClient(ClientDto in) {
@@ -60,5 +66,9 @@ public class SvcClientImp implements SvcClient {
         }
         repo.updatePassword(in.getNewPassword(), client_id);
         return new ApiResponse("Contraseña actualizada");
+    }
+
+    public List<Product> getAllProducts() {
+        return repoProduct.getAllProducts();
     }
 }
