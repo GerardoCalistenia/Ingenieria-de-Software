@@ -2,6 +2,7 @@ package com.michelin.api.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +15,10 @@ import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
 import com.michelin.api.dto.PasswordDto;
 import com.michelin.api.entity.Client;
+import com.michelin.api.entity.Order;
 import com.michelin.api.entity.Product;
+import com.michelin.api.entity.Sale;
+import com.michelin.api.entity.Salesman;
 import com.michelin.api.repository.RepoClient;
 import com.michelin.api.repository.RepoProduct;
 import com.michelin.exception.ApiException;
@@ -27,6 +31,9 @@ public class SvcClientImp implements SvcClient {
     
     @Autowired
     RepoProduct repoProduct;
+
+    @Autowired
+    RepoClient repoClient;
 
     @Override
     public ApiResponse registerClient(ClientDto in) {
@@ -73,6 +80,28 @@ public class SvcClientImp implements SvcClient {
     }
 
     public ApiResponse createOrder(Integer product_id, Integer client_id) {
-        return null;
+        Client client = repoClient.findByClientId(client_id);
+
+        if (client == null) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "El cliente no existe");  
+        }
+
+        Product product = repoProduct.findProductById(product_id);
+
+        if (product == null) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "El producto no esta disponible"); 
+        }      
+
+        Sale sale = new Sale();
+        sale.setTotal(product.getPrice());
+        sale.setSaleDate(new Date());
+        sale.setSalesman(new Salesman());
+
+        Order order = new Order();
+        order.setStatus(4);
+        order.setSale(sale);
+        order.setClient(client);
+
+        return new ApiResponse("pedido en proceso");   
     }
 }

@@ -55,7 +55,7 @@ public class CtrlClient {
 
     @PostMapping("/products/{product_id}/buy/{client_id}")
     public ResponseEntity<ApiResponse> buyProduct(@PathVariable Integer product_id,
-    @PathVariable Integer client_id, @PathVariable Integer salesman_id) {
+    @PathVariable Integer client_id) {
         return new ResponseEntity<>(svc.createOrder(product_id, client_id), HttpStatus.OK);
     }
     

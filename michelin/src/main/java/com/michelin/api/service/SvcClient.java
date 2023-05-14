@@ -14,5 +14,5 @@ public interface SvcClient {
 
     public List<Product> getAllProducts();
 
-    public ApiResponse createOrder(Integer product_id, Integer client_id, Integer salesman_id);
+    public ApiResponse createOrder(Integer product_id, Integer client_id);
 }
