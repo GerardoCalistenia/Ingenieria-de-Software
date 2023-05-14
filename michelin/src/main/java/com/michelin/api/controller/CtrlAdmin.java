@@ -21,6 +21,7 @@ import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
 import com.michelin.api.entity.Product;
+import com.michelin.api.entity.Salesman;
 import com.michelin.api.service.SvcAdmin;
 import com.michelin.exception.ApiException;
 
@@ -49,13 +50,13 @@ public class CtrlAdmin {
     }
 
     @GetMapping("/salesman/")
-    public ResponseEntity<List<SalesmanDto>> getAll() {
+    public ResponseEntity<List<Salesman>> getAll() {
         return new ResponseEntity<>(svc.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/salesman/searchBy/{salesman_id}")
     public ResponseEntity<SalesmanDto> searchSalesman(@PathVariable Integer salesman_id) {
-        return new ResponseEntity<>(svc.getSalesman(salesman_id), HttpStatus.OK);
+        return new ResponseEntity<>(svc.getSalesmanById(salesman_id), HttpStatus.OK);
     }
 
     /*

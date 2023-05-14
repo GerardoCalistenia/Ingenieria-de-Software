@@ -6,6 +6,7 @@ import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
 import com.michelin.api.entity.Product;
+import com.michelin.api.entity.Salesman;
 
 public interface SvcAdmin {
      /*
@@ -16,10 +17,10 @@ public interface SvcAdmin {
 
     public ApiResponse deleteSalesman(Integer salesman_id);
 
-    public List<SalesmanDto> getAll();
+    public List<Salesman> getAll();
 
     public SalesmanDto getSalesmanById(Integer salesman_id);
-    
+
     /*
      * Product Section
      */

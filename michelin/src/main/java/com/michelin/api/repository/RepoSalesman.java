@@ -1,6 +1,7 @@
 package com.michelin.api.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -42,4 +43,7 @@ public interface RepoSalesman extends JpaRepository<Salesman, Integer> {
     @Query(value = "DELETE FROM salesman WHERE salesman_id = :salesman_id", nativeQuery = true)
     void deleteSalesman(@Param("salesman_id") Integer salesman_id);
 
+    @Transactional
+    @Query(value = "SELECT * FROM salesman", nativeQuery = true)
+    List<Salesman> getAll();
 }

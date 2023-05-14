@@ -71,8 +71,8 @@ public class SvcAdminImp implements SvcAdmin {
         return new ApiResponse("Vendedor eliminado");
      }
 
-    public List<SalesmanDto> getAll() {
-        return null;
+    public List<Salesman> getAll() {
+        return repo.getAll();
     }
 
     public SalesmanDto getSalesmanById(Integer salesman_id) {
