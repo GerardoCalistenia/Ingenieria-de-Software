@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
+import com.michelin.api.entity.Administrator;
 import com.michelin.api.entity.Product;
 import com.michelin.api.entity.Salesman;
+import com.michelin.api.repository.RepoAdministrator;
 import com.michelin.api.repository.RepoProduct;
 import com.michelin.api.repository.RepoSalesman;
 import com.michelin.exception.ApiException;
@@ -28,8 +30,11 @@ public class SvcAdminImp implements SvcAdmin {
     @Autowired
     RepoProduct repoProduct;
 
+    @Autowired
+    RepoAdministrator repoAdmin;
+
      /*
-     * Product Section
+     * Salesman section
      */
 
     @Override
@@ -85,19 +90,31 @@ public class SvcAdminImp implements SvcAdmin {
         return salesman;
     }
 
-
     /*
      * Product Section
      */
 
      @Override
      public List<Product> getProducts() {
-        return null;
+        return repoProduct.getAllProducts();
      }
 
      @Override
      public ApiResponse addProduct(ProductDto product, Integer administrator_id) {
-        return null;
+        Product productSaved = repoProduct.findByName(product.getName());
+
+        if (productSaved != null) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "El producto ya existe");
+        }
+
+        Administrator admin = repoAdmin.findByAdminId(administrator_id);
+
+        if (admin == null) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "El administrador no existe");
+        }
+
+        repoProduct.createProduct(product.getName(), product.getDescription(), product.getPrice(), administrator_id);
+        return new ApiResponse("Producto agregado exitosamente");
      }
  
      @Override

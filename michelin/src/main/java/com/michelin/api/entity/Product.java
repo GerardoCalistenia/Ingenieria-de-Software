@@ -7,7 +7,11 @@ import javax.persistence.Table;
 
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "product")
@@ -18,21 +22,24 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer product_id;
 
+    @JsonProperty("name")
     @NotNull
     @Column(name = "name")
     private String name;
 
+    @JsonProperty("description")
     @NotNull
     @Column(name = "description")
     private String description;
 
+    @JsonProperty("price")
     @NotNull
     @Column(name = "price")
     private Integer price;
 
-    @NotNull
-    @Column(name = "administrator_id")
-    private Integer administrator_id;
+    @OneToOne
+    @JoinColumn(name = "administrator_id")
+    private Administrator administrator;
 
 
     public Integer getProductId() {
@@ -67,11 +74,5 @@ public class Product {
         this.price = price;
     }
     
-    public Integer getAdministratorId() {
-        return product_id;
-    }
-    
-    public void setAdministratorId(Integer administrator_id) {
-        this.administrator_id = administrator_id;
-    }
+
 }
