@@ -20,7 +20,18 @@ public interface RepoProduct extends JpaRepository<Product,Integer>{
     @Transactional
     @Query(value = "SELECT * FROM product where name = :name", nativeQuery = true)
     Product findByName(@Param("name") String name);
-    
+
+    @Transactional
+    @Query(value = "SELECT * FROM product WHERE product_id = :product_id", nativeQuery = true)
+    Product findBy_Id(@Param("product_id") Integer product_id);
+
+    @Modifying
+    @Transactional
+    @Query(value= "UPDATE product SET name = :name, description =:description, price =:price WHERE product_id = :product_id", nativeQuery = true)
+    Integer updateProduct(@Param("product_id")Integer product_id, @Param("name") String name, @Param("description") String description, @Param("price") Integer price);
+
+
+
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO product (name, description, price, administrator_id) VALUES (:name, :description, :price, :administrator_id)", nativeQuery = true)
