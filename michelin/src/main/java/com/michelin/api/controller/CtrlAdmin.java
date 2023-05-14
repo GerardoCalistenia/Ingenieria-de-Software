@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
+import com.michelin.api.entity.Client;
 import com.michelin.api.entity.Product;
 import com.michelin.api.entity.Salesman;
 import com.michelin.api.service.SvcAdmin;
@@ -31,6 +32,14 @@ public class CtrlAdmin {
 
     @Autowired
     SvcAdmin svc;
+
+    /*
+     * Client Section
+     */
+    @GetMapping("client/searchBy/{client_id}")
+    public ResponseEntity<Client> searchClient(@PathVariable Integer client_id) {
+        return new ResponseEntity<>(svc.getClientById(client_id), HttpStatus.OK);
+    }
 
     /*
      * Salesman Section

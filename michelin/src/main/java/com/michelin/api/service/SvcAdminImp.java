@@ -14,9 +14,11 @@ import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
 import com.michelin.api.entity.Administrator;
+import com.michelin.api.entity.Client;
 import com.michelin.api.entity.Product;
 import com.michelin.api.entity.Salesman;
 import com.michelin.api.repository.RepoAdministrator;
+import com.michelin.api.repository.RepoClient;
 import com.michelin.api.repository.RepoProduct;
 import com.michelin.api.repository.RepoSalesman;
 import com.michelin.exception.ApiException;
@@ -32,6 +34,23 @@ public class SvcAdminImp implements SvcAdmin {
 
     @Autowired
     RepoAdministrator repoAdmin;
+
+    @Autowired
+    RepoClient repoClient;
+
+
+    /*
+     * Client Section
+     */
+    @Override
+     public Client getClientById(Integer client_id) {
+        Client client = repoClient.findByClientId(client_id);
+        if (client == null) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "El cliente no existe");
+        }
+        return client;
+     }
+
 
      /*
      * Salesman section
