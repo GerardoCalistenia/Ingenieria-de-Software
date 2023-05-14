@@ -62,7 +62,13 @@ public class SvcAdminImp implements SvcAdmin {
     }
 
     public ApiResponse deleteSalesman(Integer salesman_id) {
-        return null;
+        Salesman salesman = repo.findBySalesmanId(salesman_id);
+
+        if (salesman == null) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "El vendedor no existe");
+        }
+        repo.deleteSalesman(salesman_id);
+        return new ApiResponse("Vendedor eliminado");
      }
 
     public List<SalesmanDto> getAll() {
@@ -72,7 +78,6 @@ public class SvcAdminImp implements SvcAdmin {
     public SalesmanDto getSalesmanById(Integer salesman_id) {
         return null;
     }
-
 
 
     /*

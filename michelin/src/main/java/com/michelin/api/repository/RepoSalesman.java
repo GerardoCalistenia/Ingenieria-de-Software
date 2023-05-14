@@ -36,4 +36,10 @@ public interface RepoSalesman extends JpaRepository<Salesman, Integer> {
     @Modifying
     @Query(value = "UPDATE salesman SET password = :password WHERE salesman_id = :salesman_id", nativeQuery = true)
     void updatePassword(@Param("password") String password, @Param("salesman_id") Integer salesman_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM salesman WHERE salesman_id = :salesman_id", nativeQuery = true)
+    void deleteSalesman(@Param("salesman_id") Integer salesman_id);
+
 }
