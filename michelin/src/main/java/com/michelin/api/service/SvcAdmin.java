@@ -19,7 +19,7 @@ public interface SvcAdmin {
 
     public List<Salesman> getAll();
 
-    public SalesmanDto getSalesmanById(Integer salesman_id);
+    public Salesman getSalesmanById(Integer salesman_id);
 
     /*
      * Product Section

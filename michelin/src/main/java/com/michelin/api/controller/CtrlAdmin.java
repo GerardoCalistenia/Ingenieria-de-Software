@@ -55,7 +55,7 @@ public class CtrlAdmin {
     }
 
     @GetMapping("/salesman/searchBy/{salesman_id}")
-    public ResponseEntity<SalesmanDto> searchSalesman(@PathVariable Integer salesman_id) {
+    public ResponseEntity<Salesman> searchSalesman(@PathVariable Integer salesman_id) {
         return new ResponseEntity<>(svc.getSalesmanById(salesman_id), HttpStatus.OK);
     }
 

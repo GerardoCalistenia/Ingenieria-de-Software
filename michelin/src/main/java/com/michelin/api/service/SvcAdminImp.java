@@ -75,8 +75,14 @@ public class SvcAdminImp implements SvcAdmin {
         return repo.getAll();
     }
 
-    public SalesmanDto getSalesmanById(Integer salesman_id) {
-        return null;
+    public Salesman getSalesmanById(Integer salesman_id) {
+        Salesman salesman = repo.findBySalesmanId(salesman_id);
+
+        if (salesman == null) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "El vendedor no existe");
+        }
+
+        return salesman;
     }
 
 
