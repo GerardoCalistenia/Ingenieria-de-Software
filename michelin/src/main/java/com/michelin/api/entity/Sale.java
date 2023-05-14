@@ -47,6 +47,14 @@ public class Sale {
         this.total = total;
     }
 
+    public Salesman getSalesman() {
+        return salesman;
+    }
+
+    public void setSalesman(Salesman salesman) {
+        this.salesman = salesman;
+    }
+
     public Date getSaleDate() {
         return sale_date;
     }
