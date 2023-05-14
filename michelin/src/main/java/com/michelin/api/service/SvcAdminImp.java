@@ -28,6 +28,10 @@ public class SvcAdminImp implements SvcAdmin {
     @Autowired
     RepoProduct repoProduct;
 
+     /*
+     * Product Section
+     */
+
     @Override
     public ApiResponse registerSalesman(SalesmanDto in) {
         Salesman salesman = repo.findByEmail(in.getEmail());
@@ -56,6 +60,19 @@ public class SvcAdminImp implements SvcAdmin {
         }
         return sb.toString();
     }
+
+    public ApiResponse deleteSalesman(Integer salesman_id) {
+        return null;
+     }
+
+    public List<SalesmanDto> getAll() {
+        return null;
+    }
+
+    public SalesmanDto getSalesmanById(Integer salesman_id) {
+        return null;
+    }
+
 
 
     /*

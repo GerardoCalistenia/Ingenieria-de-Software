@@ -44,18 +44,18 @@ public class CtrlAdmin {
     }
 
     @DeleteMapping("/salesman/delete/{salesman_id}")
-    public ResponseEntity<ApiResponse> deleteSalesman(@PathVariable Integer salesman) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<ApiResponse> deleteSalesman(@PathVariable Integer salesman_id) {
+        return new ResponseEntity<>(svc.deleteSalesman(salesman_id), HttpStatus.OK);
     }
 
     @GetMapping("/salesman/")
     public ResponseEntity<List<SalesmanDto>> getAll() {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(svc.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/salesman/searchBy/{salesman_id}")
-    public ResponseEntity<SalesmanDto> searchSalesman(@Valid @RequestBody SalesmanDto salesman) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<SalesmanDto> searchSalesman(@PathVariable Integer salesman_id) {
+        return new ResponseEntity<>(svc.getSalesman(salesman_id), HttpStatus.OK);
     }
 
     /*

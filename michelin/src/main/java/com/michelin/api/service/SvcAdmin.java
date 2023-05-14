@@ -8,8 +8,17 @@ import com.michelin.api.dto.SalesmanDto;
 import com.michelin.api.entity.Product;
 
 public interface SvcAdmin {
+     /*
+     * Salesman Section
+     */
+
     public ApiResponse registerSalesman(SalesmanDto in);   
 
+    public ApiResponse deleteSalesman(Integer salesman_id);
+
+    public List<SalesmanDto> getAll();
+
+    public SalesmanDto getSalesmanById(Integer salesman_id);
     
     /*
      * Product Section
@@ -22,5 +31,7 @@ public interface SvcAdmin {
     public ApiResponse updateProduct(Integer product_id, ProductDto product);
 
     public ApiResponse deleteProduct(Integer product_id);
+
+    
 
 }
