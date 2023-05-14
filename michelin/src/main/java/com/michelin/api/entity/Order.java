@@ -19,7 +19,7 @@ public class Order {
     private Integer product_order_id;
 
     @Column(name = "status")
-    private String status;
+    private Integer status;
 
     @OneToOne
     @JoinColumn(name = "sale_id")
@@ -28,4 +28,20 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    public Integer getProductOrderId() {
+        return product_order_id;
+    }
+
+    public void setProductOrderId(Integer product_order_id) {
+        this.product_order_id = product_order_id;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
