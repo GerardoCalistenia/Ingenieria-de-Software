@@ -24,9 +24,13 @@ public interface RepoProduct extends JpaRepository<Product,Integer>{
     @Transactional
     @Query(value = "SELECT * FROM product where product_id = :product_id", nativeQuery = true)
     Product findProductById(@Param("product_id") Integer product_id);
-    
+
     @Modifying
     @Transactional
+    @Query(value = "DELETE FROM product where product_id = :product_id", nativeQuery = true)
+    void deleteProductById(@Param("product_id") Integer product_id);
+    
+    @Modifying
     @Query(value = "INSERT INTO product (name, description, price, administrator_id) VALUES (:name, :description, :price, :administrator_id)", nativeQuery = true)
     void createProduct(
     @Param("name") String name,
