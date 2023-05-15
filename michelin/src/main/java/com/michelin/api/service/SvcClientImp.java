@@ -2,7 +2,6 @@ package com.michelin.api.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -100,7 +99,7 @@ public class SvcClientImp implements SvcClient {
         Order order = new Order();
         order.setStatus(4);
         order.setSale(sale);
-        order.setClient(client);
+        order.setClient(client);    
 
         return new ApiResponse("pedido en proceso");   
     }
