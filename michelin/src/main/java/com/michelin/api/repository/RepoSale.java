@@ -17,10 +17,9 @@ public interface RepoSale extends JpaRepository<Sale, Integer>{
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO sale (total, salesman_id, sale_date) VALUES (:total, :salesman_id, :sale_date)", nativeQuery = true)
-    void createSale(
+    Integer createSale(
         @Param("total") Integer total,
         @Param("salesman_id") Integer salesman_id,
         @Param("sale_date") Date sale_date
      );
-
 }
