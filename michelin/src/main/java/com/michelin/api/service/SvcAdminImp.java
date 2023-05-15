@@ -138,7 +138,13 @@ public class SvcAdminImp implements SvcAdmin {
  
      @Override
      public ApiResponse updateProduct(Integer product_id, ProductDto product) {
-        return null;
+        Product productSaved = repoProduct.findProductById(product_id);
+        if (productSaved == null) { 
+            throw new ApiException(HttpStatus.NOT_FOUND, "El producto no existe");
+        }
+
+        repoProduct.updateProduct(product_id, product.getName(), product.getDescription(), product.getPrice());
+        return new ApiResponse("Producto actualizado exitosamente");
      }
  
      @Override
@@ -151,5 +157,4 @@ public class SvcAdminImp implements SvcAdmin {
         repoProduct.deleteProductById(product_id);
         return new ApiResponse("Producto eliminado exitosamente");
      }
- 
 }   

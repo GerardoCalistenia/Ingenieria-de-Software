@@ -38,4 +38,13 @@ public interface RepoProduct extends JpaRepository<Product,Integer>{
     @Param("description") String description,
     @Param("price") Integer price,
     @Param("administrator_id") Integer administrator_id);
+
+    @Modifying
+    @Transactional
+    @Query(value= "UPDATE product SET name = :name, description =:description, price =:price WHERE product_id = :product_id", nativeQuery = true)
+    Integer updateProduct(
+    @Param("product_id") Integer product_id, 
+    @Param("name") String name, 
+    @Param("description") String description, 
+    @Param("price") Integer price);
 }
