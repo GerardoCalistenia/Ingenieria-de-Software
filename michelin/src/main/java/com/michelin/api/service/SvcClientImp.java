@@ -15,7 +15,6 @@ import com.michelin.api.dto.ClientDto;
 import com.michelin.api.dto.PasswordDto;
 import com.michelin.api.entity.Client;
 import com.michelin.api.entity.Product;
-import com.michelin.api.entity.Sale;
 import com.michelin.api.repository.RepoClient;
 import com.michelin.api.repository.RepoOrder;
 import com.michelin.api.repository.RepoProduct;
