@@ -38,7 +38,6 @@ public class SvcAdminImp implements SvcAdmin {
     @Autowired
     RepoClient repoClient;
 
-
     /*
      * Client Section
      */
@@ -50,7 +49,6 @@ public class SvcAdminImp implements SvcAdmin {
         }
         return client;
      }
-
 
      /*
      * Salesman section

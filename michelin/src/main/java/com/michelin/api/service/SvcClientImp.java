@@ -14,12 +14,10 @@ import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
 import com.michelin.api.dto.PasswordDto;
 import com.michelin.api.entity.Client;
-import com.michelin.api.entity.Order;
 import com.michelin.api.entity.Product;
-import com.michelin.api.entity.Sale;
-import com.michelin.api.entity.Salesman;
 import com.michelin.api.repository.RepoClient;
 import com.michelin.api.repository.RepoProduct;
+import com.michelin.api.repository.RepoSale;
 import com.michelin.exception.ApiException;
 
 @Service
@@ -33,6 +31,9 @@ public class SvcClientImp implements SvcClient {
 
     @Autowired
     RepoClient repoClient;
+
+    @Autowired
+    RepoSale repoSale;
 
     @Override
     public ApiResponse registerClient(ClientDto in) {
@@ -91,15 +92,7 @@ public class SvcClientImp implements SvcClient {
             throw new ApiException(HttpStatus.NOT_FOUND, "El producto no esta disponible"); 
         }      
 
-        Sale sale = new Sale();
-        sale.setTotal(product.getPrice());
-        sale.setSaleDate(new Date());
-        sale.setSalesman(new Salesman());
-
-        Order order = new Order();
-        order.setStatus(4);
-        order.setSale(sale);
-        order.setClient(client);    
+        repoSale.createSale(product.getPrice(), 3, new Date());
 
         return new ApiResponse("pedido en proceso");   
     }
