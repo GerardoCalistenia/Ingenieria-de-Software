@@ -67,15 +67,26 @@ function register() {
 
 function registro() {
 	event.preventDefault();
-	console.log("Hola");
 
 	const nombre = document.getElementById("nombreRegistro").value;
     const email = document.getElementById("emailRegistro").value;
+	const date = document.getElementById("dateOfBirth").value;
+
+	const fecha = new Date(date);
+	const dia = (fecha.getDate() + 1).toString().padStart(2, '0');
+	const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+	const anio = fecha.getFullYear().toString();
+
+	const fechaForm = `${dia}/${mes}/${anio}`;
 
 	const usuario = {
-        nombre: nombre,
-        email: email
+        name: nombre,
+        email: email,
+		dateOfBirth: fechaForm
     };
+
+	console.log(JSON.stringify(usuario));
+
 
 	fetch('http://localhost:8081/michelin/register', {
         method: 'POST',
