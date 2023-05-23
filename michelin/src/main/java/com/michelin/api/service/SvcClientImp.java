@@ -130,6 +130,17 @@ public class SvcClientImp implements SvcClient {
 
     @Override
     public ApiResponse login(LoginDto in) {
-        return null;
+        Client client = repo.findByEmail(in.getEmail());
+        if (client == null) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "email incorrecto");
+        }
+
+        System.out.println(client.getPassword().equals(in.getPassword()));
+
+        if (!client.getPassword().equals(in.getPassword())) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "contraseña incorrecta");
+        }
+
+        return new ApiResponse("exito");
     }
 }
