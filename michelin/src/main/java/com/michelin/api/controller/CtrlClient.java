@@ -2,6 +2,7 @@ package com.michelin.api.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
+import com.michelin.api.dto.LoginDto;
 import com.michelin.api.dto.PasswordDto;
 import com.michelin.api.entity.Product;
 import com.michelin.api.service.SvcClient;
@@ -31,7 +33,7 @@ public class CtrlClient {
     SvcClient svc;
 
     @PostMapping("/register") 
-    public ResponseEntity<ApiResponse> registerClient(@Valid @RequestBody ClientDto client, BindingResult bindingResult) {
+    public ResponseEntity<ApiResponse> registerClient(@Valid @RequestBody ClientDto client, BindingResult bindingResult) throws MessagingException {
         if (bindingResult.hasErrors()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
@@ -40,7 +42,7 @@ public class CtrlClient {
     }
 
     @PutMapping("/update/password/{client_id}")
-    public ResponseEntity<ApiResponse> updatePassword(@PathVariable Integer client_id, @Valid @RequestBody PasswordDto in, BindingResult bindingResult) {
+    public ResponseEntity<ApiResponse> updatePassword(@PathVariable Integer client_id, @Valid @RequestBody PasswordDto in, BindingResult bindingResult) throws MessagingException {
         if (bindingResult.hasErrors()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
@@ -58,5 +60,9 @@ public class CtrlClient {
     @PathVariable Integer client_id) {
         return new ResponseEntity<>(svc.createOrder(product_id, client_id), HttpStatus.OK);
     }
-    
+
+    @PostMapping("/loginn")
+    public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginDto in, BindingResult bindingResult) { 
+        return new ResponseEntity<>(svc.login(in), HttpStatus.OK);
+    }
 }

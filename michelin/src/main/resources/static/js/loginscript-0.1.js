@@ -107,7 +107,30 @@ function registro() {
 
 function entrar() {
 	event.preventDefault();
-	const username = document.getElementById("email").value;
+	const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+
+	const client = {
+		email: email,
+		password: password
+	};
+
+	fetch('http://localhost:8081/michelin/loginn', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+		body: JSON.stringify(client)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+		if(data.message == "Éxito"){
+			window.location.href = '/michelin/home';
+		}
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
 }

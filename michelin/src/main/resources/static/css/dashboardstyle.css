@@ -114,6 +114,8 @@ section.setup .text-header p {
 
 section.setup .icons {
     padding: 27px 0;
+    width: 25px;
+    height: auto;
 }
 
 section.setup h5 {

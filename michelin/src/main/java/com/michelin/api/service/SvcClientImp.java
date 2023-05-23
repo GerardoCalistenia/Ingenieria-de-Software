@@ -6,12 +6,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.michelin.api.controller.CtrlLogin;
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
+import com.michelin.api.dto.LoginDto;
 import com.michelin.api.dto.PasswordDto;
 import com.michelin.api.entity.Client;
 import com.michelin.api.entity.Product;
@@ -39,8 +46,14 @@ public class SvcClientImp implements SvcClient {
     @Autowired
     RepoOrder repoOrder;
 
+    @Autowired
+    JavaMailSender emailSender;
+    
+    @Autowired
+    CtrlLogin ctrlLogin;
+    
     @Override
-    public ApiResponse registerClient(ClientDto in) {
+    public ApiResponse registerClient(ClientDto in) throws MessagingException {
         
         Client client = repo.findByEmail(in.getEmail());
 
@@ -55,7 +68,8 @@ public class SvcClientImp implements SvcClient {
         } catch (ParseException pe) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Formato de fecha incorrecto");
         }
-        return new ApiResponse("registro exitoso");
+        sendPasswordEmail(in.getEmail(), password);
+        return new ApiResponse("registro exitoso, su contraseña se ha enviado su correo.");
     }
 
     private String generateNewPassword(int len) {
@@ -69,14 +83,33 @@ public class SvcClientImp implements SvcClient {
         return sb.toString();
     }
 
+    private void sendPasswordEmail(String email, String password) throws MessagingException {
+
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setTo(email);
+        helper.setSubject("Michelin: Nueva contraseña generada!");
+        helper.setText("Su nueva contraseña es: " + password);
+
+        emailSender.send(message);
+    }
+
+
+
     @Override
-    public ApiResponse updatePassword(PasswordDto in, Integer client_id) {
+    public ApiResponse updatePassword(PasswordDto in, Integer client_id) throws MessagingException {
         Client client = repo.findByClientId(client_id);
         if (client == null) {
             throw new ApiException(HttpStatus.NOT_FOUND, "El cliente no existe");
         }
         repo.updatePassword(in.getNewPassword(), client_id);
+
+        String email = client.getEmail();
+        sendPasswordEmail(email, in.getNewPassword());
+
         return new ApiResponse("Contraseña actualizada");
+
     }
 
     public List<Product> getAllProducts() {
@@ -102,5 +135,23 @@ public class SvcClientImp implements SvcClient {
        repoOrder.createSale(4, 5, client_id);
 
         return new ApiResponse("pedido en proceso");   
+    }
+
+    @Override
+    public ApiResponse login(LoginDto in) {
+        Client client = repo.findByEmail(in.getEmail());
+        if (client == null) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "email incorrecto");
+        }
+
+        System.out.println(client.getPassword().equals(in.getPassword()));
+
+        if (!client.getPassword().equals(in.getPassword())) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "contraseña incorrecta");
+        }
+
+        ctrlLogin.homePage();
+
+        return new ApiResponse("Éxito");
     }
 }

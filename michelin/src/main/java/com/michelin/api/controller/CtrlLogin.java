@@ -15,7 +15,8 @@ public class CtrlLogin {
 
     @GetMapping("/home")
     public String homePage(){
-        return "home";
+        
+        return "dashboard";
     }
 
     @GetMapping("/")
