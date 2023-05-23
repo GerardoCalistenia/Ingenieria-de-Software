@@ -107,5 +107,7 @@ function registro() {
 
 function entrar() {
 	event.preventDefault();
-	console.log("Hola");
+	const username = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
 }
