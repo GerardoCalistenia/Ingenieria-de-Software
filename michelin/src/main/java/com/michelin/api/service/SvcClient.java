@@ -13,7 +13,7 @@ import com.michelin.api.entity.Product;
 public interface SvcClient {
     public ApiResponse registerClient(ClientDto client) throws MessagingException;
 
-    public ApiResponse updatePassword(PasswordDto password, Integer client_id);
+    public ApiResponse updatePassword(PasswordDto password, Integer client_id) throws MessagingException;
 
     public List<Product> getAllProducts();
 

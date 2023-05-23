@@ -42,7 +42,7 @@ public class CtrlClient {
     }
 
     @PutMapping("/update/password/{client_id}")
-    public ResponseEntity<ApiResponse> updatePassword(@PathVariable Integer client_id, @Valid @RequestBody PasswordDto in, BindingResult bindingResult) {
+    public ResponseEntity<ApiResponse> updatePassword(@PathVariable Integer client_id, @Valid @RequestBody PasswordDto in, BindingResult bindingResult) throws MessagingException {
         if (bindingResult.hasErrors()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getAllErrors().get(0).getDefaultMessage());
         }

@@ -94,13 +94,18 @@ public class SvcClientImp implements SvcClient {
 
 
     @Override
-    public ApiResponse updatePassword(PasswordDto in, Integer client_id) {
+    public ApiResponse updatePassword(PasswordDto in, Integer client_id) throws MessagingException {
         Client client = repo.findByClientId(client_id);
         if (client == null) {
             throw new ApiException(HttpStatus.NOT_FOUND, "El cliente no existe");
         }
         repo.updatePassword(in.getNewPassword(), client_id);
+
+        String email = client.getEmail();
+        sendPasswordEmail(email, in.getNewPassword());
+
         return new ApiResponse("Contraseña actualizada");
+
     }
 
     public List<Product> getAllProducts() {
