@@ -1,8 +1,5 @@
-document.getElementsByClassName("btn btn-outline-secondary shadow-sm d-sm d-block me-5").addEventListener("click", cierre);
-document.getElementsByClassName("btn btn-outline-secondary shadow-sm d-sm d-block").addEventListener("click", actualiza);
-
-var cerrar_sesion = document.querySelector(".btn btn-outline-secondary shadow-sm d-sm d-block me-5");
-var cambiar_contra = document.querySelector(".btn btn-outline-secondary shadow-sm d-sm d-block");
+document.getElementById("boton_cerrar_sesion").addEventListener("click", cierre);
+document.getElementById("boton_actualizar_contrasena").addEventListener("click", actualiza);
 
 function cierre() {
     const response = fetch('http://localhost:8081/michelin/login', {
