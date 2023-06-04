@@ -10,13 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.PasswordDto;
-import com.michelin.api.dto.SalesmanLoginDto;
 import com.michelin.api.service.SvcSalesman;
 import com.michelin.exception.ApiException;
 
@@ -34,12 +32,5 @@ public class CtrlSalesman {
         }
         return new ResponseEntity<>(svc.updatePassword(in, salesman_id), HttpStatus.OK);
     }
-
-
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponse> login(@Valid @RequestBody SalesmanLoginDto in, BindingResult bindingResult) { 
-        return new ResponseEntity<>(svc.loginSalesman(in), HttpStatus.OK);
-    }
-
 
 }

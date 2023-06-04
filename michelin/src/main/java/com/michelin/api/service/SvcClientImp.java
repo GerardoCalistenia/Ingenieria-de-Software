@@ -164,7 +164,7 @@ public class SvcClientImp implements SvcClient {
     public ApiResponse login(LoginDto in) {
         Client client = repo.findByEmail(in.getEmail());
         if (client == null) {
-            throw new ApiException(HttpStatus.NOT_FOUND, "email incorrecto");
+            return null;
         }
 
         System.out.println(client.getPassword().equals(in.getPassword()));

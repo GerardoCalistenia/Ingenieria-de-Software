@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.michelin.api.dto.ApiResponse;
+import com.michelin.api.dto.LoginDto;
 import com.michelin.api.dto.PasswordDto;
 import com.michelin.api.dto.SalesmanLoginDto;
 import com.michelin.api.entity.Salesman;
@@ -29,11 +30,11 @@ public class SvcSalesmanImp implements SvcSalesman {
 
 
     @Override
-    public ApiResponse loginSalesman(SalesmanLoginDto in){
+    public ApiResponse loginSalesman(LoginDto in){
 
        Salesman salesman = repo.findByEmail(in.getEmail());
        if(salesman == null){
-           throw new ApiException(HttpStatus.BAD_REQUEST, "El correo no ha sido registrado");
+           return null;
        }
 
    
