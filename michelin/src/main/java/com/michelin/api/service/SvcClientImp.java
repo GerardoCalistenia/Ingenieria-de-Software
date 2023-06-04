@@ -15,7 +15,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.michelin.api.controller.CtrlLogin;
+import com.michelin.api.controller.CtrlLoginLoad;
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
 import com.michelin.api.dto.LoginDto;
@@ -60,7 +60,7 @@ public class SvcClientImp implements SvcClient {
     JavaMailSender emailSender;
     
     @Autowired
-    CtrlLogin ctrlLogin;
+    CtrlLoginLoad ctrlLogin;
     
 
     @Override

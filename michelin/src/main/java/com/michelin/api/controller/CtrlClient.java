@@ -61,8 +61,4 @@ public class CtrlClient {
         return new ResponseEntity<>(svc.createOrder(product_id, client_id), HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginDto in, BindingResult bindingResult) { 
-        return new ResponseEntity<>(svc.login(in), HttpStatus.OK);
-    }
 }
