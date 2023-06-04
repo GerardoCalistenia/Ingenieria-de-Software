@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.michelin.api.dto.AdminDto;
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
@@ -27,7 +29,7 @@ import com.michelin.exception.ApiException;
 public class SvcAdminImp implements SvcAdmin {
 
     @Autowired
-    RepoSalesman repo;
+    RepoSalesman repoSalesman;
 
     @Autowired
     RepoProduct repoProduct;
@@ -37,6 +39,31 @@ public class SvcAdminImp implements SvcAdmin {
 
     @Autowired
     RepoClient repoClient;
+
+
+
+    /*
+     *Admin Section 
+     */
+
+     @Override
+     public ApiResponse loginAdmin(AdminDto in) {
+        Administrator admin = repoAdmin.findByEmail(in.getEmail());
+        if(admin == null){
+            throw new ApiException(HttpStatus.BAD_REQUEST, "El correo no ha sido registrado");
+        }
+ 
+    
+        String passwordRepo = admin.getPassword();
+        String passwordIn =in.getPassword();
+ 
+        if(!passwordRepo.equals(passwordIn)){
+            throw new ApiException(HttpStatus.BAD_REQUEST, "La contraseña es incorrecta");
+        }
+ 
+ 
+        return new ApiResponse("Login exitoso ");
+     }
 
     /*
      * Client Section
@@ -56,7 +83,18 @@ public class SvcAdminImp implements SvcAdmin {
 
     @Override
     public ApiResponse registerSalesman(SalesmanDto in) {
-        Salesman salesman = repo.findByEmail(in.getEmail());
+
+    Client client = repoClient.findByEmail(in.getEmail());
+    if (client != null) {
+        throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado en cliente");
+    }
+
+    Administrator admin = repoAdmin.findByEmail(in.getEmail());
+    if (admin != null) {
+        throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado en administrador");
+    }
+
+    Salesman salesman = repoSalesman.findByEmail(in.getEmail());
 
         if (salesman != null) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado");
@@ -65,7 +103,7 @@ public class SvcAdminImp implements SvcAdmin {
         String password = generateNewPassword(10);
         try {
         Date date = new SimpleDateFormat("dd/MM/yyyy").parse(in.getDateOfBirth());
-        repo.createClient(in.getName(), in.getEmail(), password, date);
+        repoSalesman.createClient(in.getName(), in.getEmail(), password, date);
         } catch (ParseException pe) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Formato de fecha incorrecto");
         }
@@ -84,21 +122,21 @@ public class SvcAdminImp implements SvcAdmin {
     }
 
     public ApiResponse deleteSalesman(Integer salesman_id) {
-        Salesman salesman = repo.findBySalesmanId(salesman_id);
+        Salesman salesman = repoSalesman.findBySalesmanId(salesman_id);
 
         if (salesman == null) {
             throw new ApiException(HttpStatus.NOT_FOUND, "El vendedor no existe");
         }
-        repo.deleteSalesman(salesman_id);
+        repoSalesman.deleteSalesman(salesman_id);
         return new ApiResponse("Vendedor eliminado");
      }
 
     public List<Salesman> getAll() {
-        return repo.getAll();
+        return repoSalesman.getAll();
     }
 
     public Salesman getSalesmanById(Integer salesman_id) {
-        Salesman salesman = repo.findBySalesmanId(salesman_id);
+        Salesman salesman = repoSalesman.findBySalesmanId(salesman_id);
 
         if (salesman == null) {
             throw new ApiException(HttpStatus.NOT_FOUND, "El vendedor no existe");
@@ -155,4 +193,7 @@ public class SvcAdminImp implements SvcAdmin {
         repoProduct.deleteProductById(product_id);
         return new ApiResponse("Producto eliminado exitosamente");
      }
+
+
+
 }   

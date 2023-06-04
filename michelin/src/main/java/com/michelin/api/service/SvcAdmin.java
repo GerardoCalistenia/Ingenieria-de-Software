@@ -2,6 +2,7 @@ package com.michelin.api.service;
 
 import java.util.List;
 
+import com.michelin.api.dto.AdminDto;
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
@@ -10,6 +11,15 @@ import com.michelin.api.entity.Product;
 import com.michelin.api.entity.Salesman;
 
 public interface SvcAdmin {
+
+    /*
+     * Admin Section
+     */
+
+
+     public ApiResponse loginAdmin(AdminDto in);  
+
+
      /*
      * Client Section
      */

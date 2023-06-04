@@ -115,7 +115,7 @@ function entrar() {
 		password: password
 	};
 
-	fetch('http://localhost:8081/michelin/loginn', {
+	fetch('http://localhost:8081/michelin/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

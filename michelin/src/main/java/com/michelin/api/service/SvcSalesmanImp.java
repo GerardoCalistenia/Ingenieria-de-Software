@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.PasswordDto;
+import com.michelin.api.dto.SalesmanLoginDto;
 import com.michelin.api.entity.Salesman;
 import com.michelin.api.repository.RepoSalesman;
 import com.michelin.exception.ApiException;
@@ -24,5 +25,26 @@ public class SvcSalesmanImp implements SvcSalesman {
         }
         repo.updatePassword(in.getNewPassword(), salesman_id);
         return new ApiResponse("Contraseña actualizada");
+    }
+
+
+    @Override
+    public ApiResponse loginSalesman(SalesmanLoginDto in){
+
+       Salesman salesman = repo.findByEmail(in.getEmail());
+       if(salesman == null){
+           throw new ApiException(HttpStatus.BAD_REQUEST, "El correo no ha sido registrado");
+       }
+
+   
+       String passwordRepo = salesman.getPassword();
+       String passwordIn =in.getPassword();
+
+       if(!passwordRepo.equals(passwordIn)){
+           throw new ApiException(HttpStatus.BAD_REQUEST, "La contraseña es incorrecta");
+       }
+
+
+       return new ApiResponse("Login exitoso ");
     }
 }
