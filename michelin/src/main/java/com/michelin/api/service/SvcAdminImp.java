@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.michelin.api.dto.AdminDto;
 import com.michelin.api.dto.ApiResponse;
+import com.michelin.api.dto.LoginDto;
 import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
 import com.michelin.api.entity.Administrator;
@@ -46,10 +46,10 @@ public class SvcAdminImp implements SvcAdmin {
      */
 
      @Override
-     public ApiResponse loginAdmin(AdminDto in) {
+     public ApiResponse loginAdmin(LoginDto in) {
         Administrator admin = repoAdmin.findByEmail(in.getEmail());
         if(admin == null){
-            throw new ApiException(HttpStatus.BAD_REQUEST, "El correo no ha sido registrado");
+            return null;
         }
  
     
@@ -57,11 +57,11 @@ public class SvcAdminImp implements SvcAdmin {
         String passwordIn =in.getPassword();
  
         if(!passwordRepo.equals(passwordIn)){
-            throw new ApiException(HttpStatus.BAD_REQUEST, "La contraseña es incorrecta");
+            throw new ApiException(HttpStatus.BAD_REQUEST, "contraseña es incorrecta");
         }
  
  
-        return new ApiResponse("Login exitoso ");
+        return new ApiResponse("login exitoso");
      }
 
     /*

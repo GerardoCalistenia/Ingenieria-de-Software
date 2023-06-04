@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.michelin.api.dto.AdminDto;
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ProductDto;
 import com.michelin.api.dto.SalesmanDto;
@@ -53,15 +52,6 @@ public class CtrlAdmin {
             throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
         return new ResponseEntity<>(svc.registerSalesman(in), HttpStatus.OK);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponse> loginAdmin(@Valid @RequestBody AdminDto in,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getAllErrors().get(0).getDefaultMessage());
-        }
-        return new ResponseEntity<>(svc.loginAdmin(in), HttpStatus.OK);
     }
 
     @DeleteMapping("/salesman/delete/{salesman_id}")

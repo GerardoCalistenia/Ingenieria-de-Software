@@ -32,19 +32,18 @@ public class SvcSalesmanImp implements SvcSalesman {
     public ApiResponse loginSalesman(LoginDto in){
 
        Salesman salesman = repo.findByEmail(in.getEmail());
+
        if(salesman == null){
            return null;
        }
 
-   
        String passwordRepo = salesman.getPassword();
        String passwordIn =in.getPassword();
 
        if(!passwordRepo.equals(passwordIn)){
-           throw new ApiException(HttpStatus.BAD_REQUEST, "La contraseña es incorrecta");
+           throw new ApiException(HttpStatus.BAD_REQUEST, "contraseña es incorrecta");
        }
 
-
-       return new ApiResponse("Login exitoso ");
+       return new ApiResponse("login exitoso");
     }
 }

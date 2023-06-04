@@ -167,14 +167,12 @@ public class SvcClientImp implements SvcClient {
             return null;
         }
 
-        System.out.println(client.getPassword().equals(in.getPassword()));
-
         if (!client.getPassword().equals(in.getPassword())) {
             throw new ApiException(HttpStatus.NOT_FOUND, "contraseña incorrecta");
         }
 
         ctrlLogin.homePage();
 
-        return new ApiResponse("Login exitoso");
+        return new ApiResponse("login exitoso");
     }
 }
