@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.LoginDto;
 import com.michelin.api.dto.PasswordDto;
-import com.michelin.api.dto.SalesmanLoginDto;
 import com.michelin.api.entity.Salesman;
 import com.michelin.api.repository.RepoSalesman;
 import com.michelin.exception.ApiException;
