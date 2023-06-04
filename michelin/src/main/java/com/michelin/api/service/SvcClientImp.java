@@ -20,7 +20,6 @@ import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
 import com.michelin.api.dto.LoginDto;
 import com.michelin.api.dto.PasswordDto;
-import com.michelin.api.dto.SalesmanLoginDto;
 import com.michelin.api.entity.Administrator;
 import com.michelin.api.entity.Client;
 import com.michelin.api.entity.Product;
