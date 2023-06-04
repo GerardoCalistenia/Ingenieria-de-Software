@@ -5,13 +5,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(
-                "/webjars/**",
-                "/img/**",
+                //"/webjars/**",
+                "/images/**",
                 "/css/**",
                 "/js/**")
                 .addResourceLocations(
-                        "classpath:/META-INF/resources/webjars/",
-                        "classpath:/static/img/",
+                        //"classpath:/META-INF/resources/webjars/",
+                        "classpath:/static/images/",
                         "classpath:/static/css/",
                         "classpath:/static/js/");
     }
@@ -22,11 +22,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/js/**", "/css/**", "/img/**" ,"/pressiplus", "/public/**", "/index", "/", "/login").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/js/**", "/css/**", "/images/**" ,"/pressiplus", "/public/**", "/index", "/", "/login").permitAll();
         http.authorizeRequests()
-                .antMatchers("/secure/admin/**").hasAnyRole("ADMIN","USER")
-                .antMatchers("/secure/admin/**").hasAnyRole("ADMIN")
-                .and()
+                .antMatchers("/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/**").hasAnyRole("ADMIN")
+                /*.and()
                 .formLogin()  //login configuration
                     .loginPage("/login")
                     .failureUrl("/login-error")
@@ -44,7 +44,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                         .tokenValiditySeconds(7 * 24 * 60 * 60) // expires in 7 days
                 .and()
                     .exceptionHandling() //exception handling configuration
-                .accessDeniedHandler(accessDeniedHandler());
+                .accessDeniedHandler(accessDeniedHandler());*/
     }
 
 }
