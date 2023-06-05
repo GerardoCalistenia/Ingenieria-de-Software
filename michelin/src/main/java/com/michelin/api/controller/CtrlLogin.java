@@ -1,11 +1,11 @@
 package com.michelin.api.controller;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +31,8 @@ public class CtrlLogin {
     @Autowired
     SvcAdmin svcAdmin;
 
+    
+
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginDto in, BindingResult bindingResult) { 
         ApiResponse response = svc.login(in);
@@ -54,4 +56,11 @@ public class CtrlLogin {
 
         throw new ApiException(HttpStatus.NOT_FOUND, "email incorrecto!");
     }
+    
+    @GetMapping("/logout")
+    public ResponseEntity<ApiResponse> logout(){
+        ApiResponse response = svc.logout();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

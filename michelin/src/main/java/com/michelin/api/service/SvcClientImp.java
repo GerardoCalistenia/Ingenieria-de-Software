@@ -32,6 +32,12 @@ import com.michelin.api.repository.RepoSale;
 import com.michelin.api.repository.RepoSalesman;
 import com.michelin.exception.ApiException;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 @Service
 public class SvcClientImp implements SvcClient {
     
@@ -169,8 +175,29 @@ public class SvcClientImp implements SvcClient {
             throw new ApiException(HttpStatus.NOT_FOUND, "contraseña incorrecta");
         }
 
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+
+        // Sesión en cookie
+        Cookie cookie = new Cookie("nombreCookie", client.getEmail());
+        cookie.setMaxAge(3600);
+        response.addCookie(cookie);
+
         ctrlLogin.homePage();
 
         return new ApiResponse("login exitoso");
     }
+
+    @Override
+    public ApiResponse logout() {
+
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+
+        // Sesión en cookie
+        Cookie cookie = new Cookie("nombreCookie", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return new ApiResponse("cierre de sesion exitoso");
+    }
+
 }

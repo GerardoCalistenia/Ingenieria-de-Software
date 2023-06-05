@@ -22,5 +22,7 @@ public interface SvcClient {
     public ApiResponse createOrder(Integer product_id, Integer client_id);
 
     public ApiResponse login(LoginDto in);
+
+    public ApiResponse logout();
 }
 

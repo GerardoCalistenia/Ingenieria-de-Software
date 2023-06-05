@@ -14,14 +14,8 @@ public class CtrlLoginLoad {
     }
 
     @GetMapping("/home")
-    public String homePage(){
-        
+    public String homePage() {
         return "dashboard";
-    }
-
-    @GetMapping("/logout")
-    public String logoutPage(){
-        return "logout";
     }
 
     @GetMapping("/")
