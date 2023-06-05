@@ -1,4 +1,5 @@
 package com.michelin.api.controller;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.LoginDto;
@@ -17,6 +20,8 @@ import com.michelin.api.service.SvcAdmin;
 import com.michelin.api.service.SvcClient;
 import com.michelin.api.service.SvcSalesman;
 import com.michelin.exception.ApiException;
+
+import javax.servlet.http.Cookie;
 
 @RestController
 @RequestMapping("/michelin")
@@ -58,9 +63,15 @@ public class CtrlLogin {
     }
     
     @GetMapping("/logout")
-    public ResponseEntity<ApiResponse> logout(){
-        ApiResponse response = svc.logout();
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ApiResponse logout(){
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+
+        // Sesión en cookie
+        Cookie cookie = new Cookie("nombreCookie", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return new ApiResponse("cierre de sesion exitoso");
     }
 
 }

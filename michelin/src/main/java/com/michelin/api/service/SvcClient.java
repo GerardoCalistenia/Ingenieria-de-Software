@@ -23,6 +23,5 @@ public interface SvcClient {
 
     public ApiResponse login(LoginDto in);
 
-    public ApiResponse logout();
 }
 

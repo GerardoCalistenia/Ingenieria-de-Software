@@ -187,17 +187,4 @@ public class SvcClientImp implements SvcClient {
         return new ApiResponse("login exitoso");
     }
 
-    @Override
-    public ApiResponse logout() {
-
-        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-
-        // Sesión en cookie
-        Cookie cookie = new Cookie("nombreCookie", "");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-
-        return new ApiResponse("cierre de sesion exitoso");
-    }
-
 }
