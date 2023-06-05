@@ -213,4 +213,13 @@ footer .copy {
         padding-top: 50px;
         margin-bottom: 44px;
     }
+
+}
+
+.changepass_text {
+    font-size: 90%;
+}
+
+#boton_guardar_contrasena {
+    margin-top: 10px;
 }

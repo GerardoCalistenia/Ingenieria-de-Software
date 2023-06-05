@@ -1,5 +1,5 @@
 document.getElementById("boton_cerrar_sesion").addEventListener("click", cierre);
-document.getElementById("boton_actualizar_contrasena").addEventListener("click", actualiza);
+
 
 function cierre() {
     const response = fetch('http://localhost:8081/michelin/login', {
@@ -13,5 +13,6 @@ function cierre() {
 }
 
 function actualiza() {
+    document.getElementById("formulario_contrasena").style.display = "block";
     console.log("ola");
 }
