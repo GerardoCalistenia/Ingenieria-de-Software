@@ -40,13 +40,13 @@ public class CtrlClient {
         return new ResponseEntity<>(svc.registerClient(client), HttpStatus.OK);
     }
 
-    @PutMapping("/update/password/{client_id}")
-    public ResponseEntity<ApiResponse> updatePassword(@PathVariable Integer client_id, @Valid @RequestBody PasswordDto in, BindingResult bindingResult) throws MessagingException {
+    @PutMapping("/update/password/{mail}")
+    public ResponseEntity<ApiResponse> updatePassword(@PathVariable String mail, @Valid @RequestBody PasswordDto in, BindingResult bindingResult) throws MessagingException {
         if (bindingResult.hasErrors()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
 
-        return new ResponseEntity<>(svc.updatePassword(in, client_id), HttpStatus.OK);
+        return new ResponseEntity<>(svc.updatePassword(in, mail), HttpStatus.OK);
     }
 
     @GetMapping("/products")

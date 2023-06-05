@@ -31,8 +31,16 @@ public interface RepoClient extends JpaRepository<Client,Integer>{
     @Query(value = "SELECT * FROM client WHERE client_id = :client_id", nativeQuery = true)
     Client findByClientId(@Param("client_id") Integer client_id);
 
+    /* 
     @Transactional
     @Modifying
     @Query(value = "UPDATE client SET password = :password WHERE client_id = :client_id", nativeQuery = true)
-    void updatePassword(@Param("password") String password, @Param("client_id") Integer client_id);    
+    void updatePassword(@Param("password") String password, @Param("client_id") Integer client_id);
+    */
+    
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE client SET password = :password WHERE email = :email", nativeQuery = true)
+    void updatePassword(@Param("password") String password, @Param("email") String email);
+
 }

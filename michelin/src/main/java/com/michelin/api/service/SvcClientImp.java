@@ -125,12 +125,12 @@ public class SvcClientImp implements SvcClient {
 
 
     @Override
-    public ApiResponse updatePassword(PasswordDto in, Integer client_id) throws MessagingException {
-        Client client = repo.findByClientId(client_id);
+    public ApiResponse updatePassword(PasswordDto in, String mail) throws MessagingException {
+        Client client = repo.findByEmail(mail);
         if (client == null) {
-            throw new ApiException(HttpStatus.NOT_FOUND, "El cliente no existe");
+            throw new ApiException(HttpStatus.NOT_FOUND, "El cliente con dicho correo no existe");
         }
-        repo.updatePassword(in.getNewPassword(), client_id);
+        repo.updatePassword(in.getNewPassword(), mail);
 
         String email = client.getEmail();
         sendPasswordEmail(email, in.getNewPassword());

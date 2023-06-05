@@ -3,6 +3,7 @@ package com.michelin.api.service;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.print.DocFlavor.STRING;
 
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
@@ -15,7 +16,7 @@ public interface SvcClient {
     
     public ApiResponse registerClient(ClientDto client) throws MessagingException;
 
-    public ApiResponse updatePassword(PasswordDto password, Integer client_id) throws MessagingException;
+    public ApiResponse updatePassword(PasswordDto password, String mail) throws MessagingException;
     
     public List<Product> getAllProducts();
 
