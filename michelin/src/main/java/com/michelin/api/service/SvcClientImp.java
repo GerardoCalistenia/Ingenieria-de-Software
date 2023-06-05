@@ -15,17 +15,21 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.michelin.api.controller.CtrlLogin;
+import com.michelin.api.controller.CtrlLoginLoad;
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;
 import com.michelin.api.dto.LoginDto;
 import com.michelin.api.dto.PasswordDto;
+import com.michelin.api.entity.Administrator;
 import com.michelin.api.entity.Client;
 import com.michelin.api.entity.Product;
+import com.michelin.api.entity.Salesman;
+import com.michelin.api.repository.RepoAdministrator;
 import com.michelin.api.repository.RepoClient;
 import com.michelin.api.repository.RepoOrder;
 import com.michelin.api.repository.RepoProduct;
 import com.michelin.api.repository.RepoSale;
+import com.michelin.api.repository.RepoSalesman;
 import com.michelin.exception.ApiException;
 
 @Service
@@ -35,7 +39,13 @@ public class SvcClientImp implements SvcClient {
     RepoClient repo;
     
     @Autowired
+    RepoAdministrator repoAdmin;
+
+    @Autowired
     RepoProduct repoProduct;
+
+    @Autowired
+    RepoSalesman repoSalesman;
 
     @Autowired
     RepoClient repoClient;
@@ -50,10 +60,23 @@ public class SvcClientImp implements SvcClient {
     JavaMailSender emailSender;
     
     @Autowired
-    CtrlLogin ctrlLogin;
+    CtrlLoginLoad ctrlLogin;
     
+
     @Override
     public ApiResponse registerClient(ClientDto in) throws MessagingException {
+
+
+
+        Administrator admin = repoAdmin.findByEmail(in.getEmail());
+        if (admin != null) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado en administrador");
+        }
+
+        Salesman salesman = repoSalesman.findByEmail(in.getEmail());
+        if (salesman != null) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado en vendedor");
+        }
         
         Client client = repo.findByEmail(in.getEmail());
 
@@ -141,10 +164,8 @@ public class SvcClientImp implements SvcClient {
     public ApiResponse login(LoginDto in) {
         Client client = repo.findByEmail(in.getEmail());
         if (client == null) {
-            throw new ApiException(HttpStatus.NOT_FOUND, "email incorrecto");
+            return null;
         }
-
-        System.out.println(client.getPassword().equals(in.getPassword()));
 
         if (!client.getPassword().equals(in.getPassword())) {
             throw new ApiException(HttpStatus.NOT_FOUND, "contraseña incorrecta");
@@ -152,6 +173,6 @@ public class SvcClientImp implements SvcClient {
 
         ctrlLogin.homePage();
 
-        return new ApiResponse("Éxito");
+        return new ApiResponse("login exitoso");
     }
 }
