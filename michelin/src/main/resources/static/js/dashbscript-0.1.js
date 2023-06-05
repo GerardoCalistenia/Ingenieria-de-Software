@@ -1,3 +1,5 @@
+window.addEventListener("load", checkSession);
+
 var cookieValue = "";
 
 document.getElementById("boton_cerrar_sesion").addEventListener("click", logout);
@@ -8,6 +10,7 @@ function checkSession() {
 
   if (cookieValue !== "") {
     console.log("La sesión está iniciada");
+    document.body.style.display = "block";
   } else {
     console.log("La sesión no está iniciada");
     window.location.href = '/michelin/login';
@@ -32,8 +35,6 @@ function getCookie(cookieName) {
 
   return "";
 }
-
-window.addEventListener("load", checkSession);
 
 function logout() {
     

@@ -12,6 +12,7 @@
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--body);
+    display: none;
 }
 
 .btn {
@@ -223,3 +224,4 @@ footer .copy {
 #boton_guardar_contrasena {
     margin-top: 10px;
 }
+
