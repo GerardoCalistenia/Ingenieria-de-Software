@@ -97,10 +97,10 @@ function registro() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data); // Hacer algo con los datos de respuesta
+        console.log(data);
     })
     .catch(error => {
-        console.error('Error:', error); // Manejar cualquier error de la llamada
+        console.error('Error:', error);
     });
 
 }
@@ -125,7 +125,7 @@ function entrar() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-		if(data.message == "Éxito"){
+		if(data.message == "login exitoso"){
 			window.location.href = '/michelin/home';
 		}
     })

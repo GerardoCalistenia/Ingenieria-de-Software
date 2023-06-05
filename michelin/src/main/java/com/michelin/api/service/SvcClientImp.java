@@ -65,9 +65,7 @@ public class SvcClientImp implements SvcClient {
 
     @Override
     public ApiResponse registerClient(ClientDto in) throws MessagingException {
-
-
-
+        
         Administrator admin = repoAdmin.findByEmail(in.getEmail());
         if (admin != null) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado en administrador");
@@ -92,7 +90,7 @@ public class SvcClientImp implements SvcClient {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Formato de fecha incorrecto");
         }
         sendPasswordEmail(in.getEmail(), password);
-        return new ApiResponse("registro exitoso, su contraseña se ha enviado su correo.");
+        return new ApiResponse("registro exitoso, su contraseña se ha enviado a su correo.");
     }
 
     private String generateNewPassword(int len) {

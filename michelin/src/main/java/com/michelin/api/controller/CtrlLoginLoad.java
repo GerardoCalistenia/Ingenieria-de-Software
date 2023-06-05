@@ -19,6 +19,11 @@ public class CtrlLoginLoad {
         return "dashboard";
     }
 
+    @GetMapping("/logout")
+    public String logoutPage(){
+        return "logout";
+    }
+
     @GetMapping("/")
     public String whateverPage(){
         return "index";
