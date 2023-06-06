@@ -3,7 +3,6 @@ package com.michelin.api.service;
 import java.util.List;
 
 import javax.mail.MessagingException;
-import javax.print.DocFlavor.STRING;
 
 import com.michelin.api.dto.ApiResponse;
 import com.michelin.api.dto.ClientDto;

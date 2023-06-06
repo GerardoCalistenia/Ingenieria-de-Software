@@ -12,7 +12,27 @@ body {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-attachment: fixed;
+	animation: backgroundAnimation 20s infinite;
 }
+
+@keyframes backgroundAnimation {
+	0% {
+	  background-image: url(../images/im1.png);
+	}
+	25% {
+	  background-image: url(../images/im2.png);
+	}
+	50% {
+	  background-image: url(../images/im3.png);
+	}
+	75% {
+	  background-image: url(../images/im4.png);
+	}
+	100% {
+	  background-image: url(../images/im1.png);
+	}
+  }
+  
 
 .contenedor_todo {
 	width: 100%;
@@ -31,6 +51,7 @@ body {
 	justify-content: center;
 	backdrop-filter: blur(3px);
 	background-color: rgba(83, 244, 105, 0.3);
+	animation: colorAnimation 10s infinite;
 }
 
 .caja_trasera div {
@@ -112,6 +133,34 @@ body {
 	color: white;
 	cursor: pointer;
 	outline: none;
+	animation: colorAnimation 10s infinite;
+}
+
+@keyframes colorAnimation {
+	0% {
+	  background-color: rgba(223, 223, 78, 0.3);
+	}
+	15% {
+	  background-color: rgba(93, 239, 70, 0.392);
+	}
+	30% {
+	  background-color: rgba(0, 255, 166, 0.3);
+	}
+	45% {
+		background-color: rgba(0, 238, 255, 0.3);
+	}
+	60% {
+		background-color: rgba(13, 0, 255, 0.3);
+	}
+	75% {
+		background-color: rgba(136, 0, 255, 0.3);
+	}
+	90% {
+		background-color: rgba(255, 0, 242, 0.3);
+	}
+	100% {
+		background-color: rgba(255, 0, 0, 0.3);
+	}
 }
 
 .formulario_login{

@@ -49,7 +49,7 @@ function logout() {
     .then(data => {
         console.log(data);
 		if(data.message == "cierre de sesion exitoso"){
-			window.location.href = '/michelin/login';
+			window.location.href = '/michelin/goodbye';
 		}
     })
     .catch(error => {
@@ -87,7 +87,6 @@ function updatePass() {
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    // Realizar las acciones necesarias con la respuesta del servidor
   })
   .catch(error => {
     console.error('Error:', error);
