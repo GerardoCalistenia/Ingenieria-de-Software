@@ -71,6 +71,20 @@ function enableDisable() {
     }
 }
 
+function sendCookieValue() {
+    const send = {
+        mail: cookieValue
+    };
+
+    fetch('http://localhost:8081/michelin/receiveMail', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(send)
+    });
+}
+
 function updatePass() {
     event.preventDefault();
     const nueva_contrasena = document.getElementById("nueva_contrasena").value();
@@ -96,4 +110,4 @@ function updatePass() {
     .catch(error => {
         console.error('Error:', error)
     });
-};
+}
