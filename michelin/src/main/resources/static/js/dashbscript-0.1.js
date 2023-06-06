@@ -74,11 +74,9 @@ function enableDisable() {
 function updatePass() {
     event.preventDefault();
     const nueva_contrasena = document.getElementById("nueva_contrasena").value();
-    const confirmar_contrasena = document.getElementById("confirmar_contrasena").value();
 
     const update = {
-        nueva_contrasena: nueva_contrasena,
-        confirmar_contrasena: confirmar_contrasena
+        new_password: nueva_contrasena
     };
 
     fetch('http://localhost:8081/michelin/updatePass', {
