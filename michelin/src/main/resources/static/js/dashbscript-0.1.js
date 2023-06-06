@@ -89,7 +89,7 @@ function updatePass() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        if (data.message == "actualizacion exitosa") {
+        if (data.message == "Contraseña actualizada") {
             window.location.href = '/michelin/home';
         }
     })
