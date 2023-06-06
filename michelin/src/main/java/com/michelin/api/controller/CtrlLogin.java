@@ -1,4 +1,8 @@
 package com.michelin.api.controller;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -21,8 +25,6 @@ import com.michelin.api.service.SvcClient;
 import com.michelin.api.service.SvcSalesman;
 import com.michelin.exception.ApiException;
 
-import javax.servlet.http.Cookie;
-
 @RestController
 @RequestMapping("/michelin")
 public class CtrlLogin {
@@ -36,10 +38,25 @@ public class CtrlLogin {
     @Autowired
     SvcAdmin svcAdmin;
 
-    
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
+    public static boolean isValidEmail(String email) {
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginDto in, BindingResult bindingResult) { 
+
+        if (in.getEmail() == ""){
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Ingresa un email");
+        }
+
+        if (!isValidEmail(in.getEmail())) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Formato de correo electrónico incorrecto");
+        }
+
         ApiResponse response = svc.login(in);
         if (response != null) {
             return new ResponseEntity<>(response, HttpStatus.OK);
