@@ -1,11 +1,10 @@
 window.addEventListener("load", checkSession);
+document.getElementById("boton_guardar_contrasena").addEventListener("click", updatePass);
 
 var cookieValue = "";
 
 document.getElementById("boton_cerrar_sesion").addEventListener("click", logout);
-document.getElementById("boton_guardar_contrasena").addEventListener("click", updatePass)
-document.getElementById("boton_guardar_contrasena").addEventListener("keyup", enableDisable)
-
+  
 function checkSession() {
   var cookieName = "nombreCookie";
   cookieValue = getCookie(cookieName);
@@ -59,57 +58,39 @@ function logout() {
 
 }
 
-function enableDisable() {
-    var btnGuardarContrasena = document.getElementById("boton_guardar_contrasena");
-    const nueva_contrasena = document.getElementById("nueva_contrasena").value();
-    const confirmar_contrasena = document.getElementById("confirmar_contrasena").value();
-    
-    if (nueva_contrasena != confirmar_contrasena || nueva_contrasena == "") {
-        btnGuardarContrasena.disabled = true;
-    } else {
-        btnGuardarContrasena.disabled = false;
-    }
-}
-
-function sendCookieValue() {
-    const send = {
-        email: cookieValue
-    };
-
-    fetch('http://localhost:8081/michelin/receiveEmail', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(send)
-    });
-}
-
+var correo = "";
 function updatePass() {
-    event.preventDefault();
-    const nueva_contrasena = document.getElementById("nueva_contrasena").value();
+  
+  correo = getCookie("nombreCookie"); // Obtener el correo de la cookie
+  const newPass1 = document.getElementById("nueva_contrasena").value;
+  const newPass2 = document.getElementById("confirmar_contrasena").value;
 
-    const update = {
-        new_password: nueva_contrasena
-    };
+  if (newPass1 !== newPass2) {
+    console.log("Las contraseñas no coinciden");
+    return;
+  }
 
-    sendCookieValue();
+  const usuario = {
+    new_password: newPass2,
+    mail: correo
+  };
 
-    fetch('http://localhost:8081/michelin/updatePass', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(update)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        if (data.message == "Contraseña actualizada") {
-            window.location.href = '/michelin/home';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+
+
+  fetch(`http://localhost:8081/michelin/update/password/${correo}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(usuario)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // Realizar las acciones necesarias con la respuesta del servidor
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 }
+
