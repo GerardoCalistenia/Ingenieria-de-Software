@@ -5,7 +5,14 @@
     --gray-1: #788190;
     --gray-2: #d3d4db;
     --white: #FFFFFF;
-    --body: #fefefe;
+}
+
+body {
+  background-image: url(../images/fin.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
 }
 
 .animate-character {
@@ -22,7 +29,6 @@
     background-size: 200% auto;
     color: #fff;
     background-clip: text;
-    /*text-fill-color: transparent;*/
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: textclip 2s linear infinite;
@@ -31,7 +37,8 @@
 }
 
 .btn {
-    border-radius: 8px;
+    border-radius: 100px;
+    outline: none;
 }
 
 .btn-primary,
@@ -40,11 +47,12 @@
 }
 
 .btn-primary {
-    background-color: #c7f1d2;
+    background-color: black;
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-dark);
+    background-color: grey;
+    outline: none;
 }
 
 .buttons {
@@ -54,7 +62,6 @@
 
 .buttons .btn {
     font-size: 16px;
-    font-weight: bold;
     line-height: 24px;
 }
 
@@ -63,18 +70,18 @@
   }
   
   .content .btn {
-    color: #dd2626;
+    color: white;
     position: absolute;
     transform: translate(-50%, -50%);
   }
 
   .content .btn:nth-child(1) {
     color: transparent;
-    -webkit-text-stroke: 1px #37A656;
+    -webkit-text-stroke: 1px white;
   }
   
   .content .btn:nth-child(2) {
-    color: #0d54c0;
+    
     animation: animate 4s ease-in-out infinite;
   }
   
