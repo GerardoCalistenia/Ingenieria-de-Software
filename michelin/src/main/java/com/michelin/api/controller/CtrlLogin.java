@@ -59,7 +59,7 @@ public class CtrlLogin {
 
         System.out.println(response);
 
-        throw new ApiException(HttpStatus.NOT_FOUND, "email incorrecto!");
+        throw new ApiException(HttpStatus.NOT_FOUND, "El email es inválido");
     }
     
     @GetMapping("/logout")

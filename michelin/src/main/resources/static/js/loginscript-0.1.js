@@ -98,6 +98,17 @@ function registro() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+		if(data.message == "registro exitoso"){
+			const errorMessage = document.getElementById("error-message2");
+			errorMessage.innerHTML = "";
+			errorMessage.textContent = "¡Registro exitoso! Su contraseña se ha enviado por correo";
+			errorMessage.style.display = "block";
+		} else {
+			const errorMessage = document.getElementById("error-message2");
+			errorMessage.innerHTML = "";
+			errorMessage.textContent = data.message;
+			errorMessage.style.display = "block";
+		}
     })
     .catch(error => {
         console.error('Error:', error);
@@ -127,6 +138,11 @@ function entrar() {
         console.log(data);
 		if(data.message == "login exitoso"){
 			window.location.href = '/michelin/home';
+		} else {
+			const errorMessage = document.getElementById("error-message");
+			errorMessage.innerHTML = "";
+			errorMessage.textContent = data.message;
+			errorMessage.style.display = "block";
 		}
     })
     .catch(error => {

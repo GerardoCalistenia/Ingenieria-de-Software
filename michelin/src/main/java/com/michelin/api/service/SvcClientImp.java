@@ -2,18 +2,25 @@ package com.michelin.api.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.michelin.api.controller.CtrlLoginLoad;
 import com.michelin.api.dto.ApiResponse;
@@ -31,12 +38,6 @@ import com.michelin.api.repository.RepoProduct;
 import com.michelin.api.repository.RepoSale;
 import com.michelin.api.repository.RepoSalesman;
 import com.michelin.exception.ApiException;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class SvcClientImp implements SvcClient {
@@ -68,9 +69,25 @@ public class SvcClientImp implements SvcClient {
     @Autowired
     CtrlLoginLoad ctrlLogin;
     
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
+    public static boolean isValidEmail(String email) {
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     @Override
     public ApiResponse registerClient(ClientDto in) throws MessagingException {
+
+        String name = in.getName();
+        if (name == null || name.isEmpty() || name.isBlank()) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Debes registrar un nombre");
+        }
+
+        if (!isValidEmail(in.getEmail())) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Formato de correo electrónico incorrecto");
+        }
         
         Administrator admin = repoAdmin.findByEmail(in.getEmail());
         if (admin != null) {
@@ -89,14 +106,43 @@ public class SvcClientImp implements SvcClient {
         }
 
         String password = generateNewPassword(10);
+
         try {
-        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(in.getDateOfBirth());
-        repo.createClient(in.getName(), in.getEmail(), password, date);
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(in.getDateOfBirth());
+
+            if (date == null || !isValidDate(date)) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "Fecha de nacimiento inválida");
+            }
+
+            repo.createClient(in.getName(), in.getEmail(), password, date);
         } catch (ParseException pe) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Formato de fecha incorrecto");
         }
         sendPasswordEmail(in.getEmail(), password);
-        return new ApiResponse("registro exitoso, su contraseña se ha enviado a su correo.");
+        return new ApiResponse("registro exitoso");
+    }
+
+    private boolean isValidDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+    
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        if (year < 1000 || year > 2023){
+            return false;
+        }
+
+        if (month < 0 || month > 12){
+            return false;
+        }
+
+        if (day < 1 || day > 31){
+            return false;
+        }
+    
+        return true;
     }
 
     private String generateNewPassword(int len) {
@@ -172,7 +218,7 @@ public class SvcClientImp implements SvcClient {
         }
 
         if (!client.getPassword().equals(in.getPassword())) {
-            throw new ApiException(HttpStatus.NOT_FOUND, "contraseña incorrecta");
+            throw new ApiException(HttpStatus.NOT_FOUND, "La contraseña es incorrecta");
         }
 
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();

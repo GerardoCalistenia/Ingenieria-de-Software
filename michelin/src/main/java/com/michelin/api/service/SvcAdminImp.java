@@ -83,17 +83,17 @@ public class SvcAdminImp implements SvcAdmin {
     @Override
     public ApiResponse registerSalesman(SalesmanDto in) {
 
-    Client client = repoClient.findByEmail(in.getEmail());
-    if (client != null) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado en cliente");
-    }
+        Client client = repoClient.findByEmail(in.getEmail());
+        if (client != null) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado en cliente");
+        }
 
-    Administrator admin = repoAdmin.findByEmail(in.getEmail());
-    if (admin != null) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado en administrador");
-    }
+        Administrator admin = repoAdmin.findByEmail(in.getEmail());
+        if (admin != null) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado en administrador");
+        }
 
-    Salesman salesman = repoSalesman.findByEmail(in.getEmail());
+        Salesman salesman = repoSalesman.findByEmail(in.getEmail());
 
         if (salesman != null) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "El correo ya esta registrado");
@@ -107,7 +107,7 @@ public class SvcAdminImp implements SvcAdmin {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Formato de fecha incorrecto");
         }
         return new ApiResponse("registro exitoso");
-    }   
+    }
 
     private String generateNewPassword(int len) {
         String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
