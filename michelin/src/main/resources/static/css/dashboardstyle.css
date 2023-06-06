@@ -59,7 +59,7 @@ body {
 }
 
 .navbar {
-    padding: 32px 0;
+    padding: 10px 0;
 }
 
 .nav-link {
@@ -95,7 +95,7 @@ section.hero .text {
 }
 
 section.setup {
-    padding: 287px 0;
+    padding: 10px 0;
 }
 
 section.setup .text-header h3 {
@@ -207,7 +207,7 @@ footer .copy {
     }
 
     section.setup {
-        padding: 50px 0;
+        padding: 50px;
     }
 
     footer {
@@ -225,3 +225,9 @@ footer .copy {
     margin-top: 10px;
 }
 
+.error-message {
+	color: black;
+	font-size: 15px;
+	text-align: center;
+	margin-top: 10px;
+}

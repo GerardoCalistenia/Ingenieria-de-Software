@@ -60,6 +60,11 @@ function logout() {
 
 var correo = "";
 function updatePass() {
+
+  const dropdownMenu = document.querySelector(".dropdown-menu");
+  dropdownMenu.addEventListener("click", function(event) {
+    event.stopPropagation();
+  });
   
   correo = getCookie("nombreCookie"); // Obtener el correo de la cookie
   const newPass1 = document.getElementById("nueva_contrasena").value;
@@ -67,6 +72,10 @@ function updatePass() {
 
   if (newPass1 !== newPass2) {
     console.log("Las contraseñas no coinciden");
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.innerHTML = "";
+    errorMessage.textContent = "Las contraseñas no coinciden";
+    errorMessage.style.display = "block";
     return;
   }
 
@@ -75,7 +84,7 @@ function updatePass() {
     mail: correo
   };
 
-
+  
 
   fetch(`http://localhost:8081/michelin/update/password/${correo}`, {
     method: 'PUT',
@@ -87,6 +96,10 @@ function updatePass() {
   .then(response => response.json())
   .then(data => {
     console.log(data);
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.innerHTML = "";
+    errorMessage.textContent = "¡Contraseña actualizada!";
+    errorMessage.style.display = "block";
   })
   .catch(error => {
     console.error('Error:', error);
