@@ -73,10 +73,10 @@ function enableDisable() {
 
 function sendCookieValue() {
     const send = {
-        mail: cookieValue
+        email: cookieValue
     };
 
-    fetch('http://localhost:8081/michelin/receiveMail', {
+    fetch('http://localhost:8081/michelin/receiveEmail', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -93,8 +93,10 @@ function updatePass() {
         new_password: nueva_contrasena
     };
 
-    fetch('http://localhost:8081/michelin/update/password/{cookieValue}', {
-        method: 'PUT',
+    sendCookieValue();
+
+    fetch('http://localhost:8081/michelin/updatePass', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -108,6 +110,6 @@ function updatePass() {
         }
     })
     .catch(error => {
-        console.error('Error:', error)
+        console.error('Error:', error);
     });
 }
