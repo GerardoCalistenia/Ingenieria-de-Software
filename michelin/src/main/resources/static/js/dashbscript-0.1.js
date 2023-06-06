@@ -93,8 +93,8 @@ function updatePass() {
         new_password: nueva_contrasena
     };
 
-    fetch('http://localhost:8081/michelin/updatePass', {
-        method: 'POST',
+    fetch('http://localhost:8081/michelin/update/password/{cookieValue}', {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
